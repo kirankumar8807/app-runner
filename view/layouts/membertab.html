@@ -1,0 +1,23 @@
+{{define "membertab"}}
+{{$Translate := .translate}}
+        <div class="flex pt-1.5 px-[16px] border-b border-[#EDEDED] whitespace-nowrap overflow-auto">
+
+        {{$Title := .title}}
+        {{$Tabmenu := .Tabmenu}}
+
+        {{range .Menu.TblModule}}
+        {{if eq .ModuleName $Title}}
+        {{range .SubModule}}
+        {{if gt (len .Routes) 0}}
+        {{$Routname := index .Routes 0}}
+        <a href="{{$Routname.RouteName}}"
+                class="px-[12px] max-sm:px-[6px] max-sm:text-[12px] relative h-8 border-b-2 {{if eq .ModuleName $Tabmenu}} !border-b-black {{end}}  border-transparent text-sm font-normal text-bold-black no-underline flex items-center">{{.ModuleName}}
+            </a>
+        {{end}}
+        {{end}}
+        {{end}}
+        {{end}}
+
+
+</div>
+{{end}}

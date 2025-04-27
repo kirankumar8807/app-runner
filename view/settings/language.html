@@ -1,0 +1,473 @@
+{{template "header" .}}
+{{template "head" .}}
+{{$Translate := .translate}}
+
+<section class="max-md:ms-0  max-md:max-w-full  w-full max-w-[calc(100%-232px)] ml-auto pt-[48px] min-h-screen">
+
+
+
+    <header
+        class=" max-md:ms-0  max-md:w-full  flex justify-end gap-[6px] h-[48px] border-b border-[#D9D9D9] p-[8px_16px] items-center fixed top-0 bg-white z-20 w-[calc(100%-232px)] right-0 z-[101]">
+        <div class="mr-auto flex items-center gap-[6px]">
+            <a href="javascript:void(0);"
+                class=" max-md:grid hidden h-[32px] w-[32px] min-w-[32px] place-items-center bg-[#F5F5F5]">
+                <img src="/public/img/menu-button.svg" alt="toggle button" class="w-4 h-4 toggle-button">
+            </a>
+            <h2 class="text-[16px] font-medium leading-[20px] text-[#252525] whitespace-nowrap">
+                {{$Translate.Languages.Language}}
+            </h2>
+        </div>
+
+
+        <div
+            class=" w-[32px] h-[32px] flex items-center justify-center relative transition-all duration-300 ease-in-out rounded-[4px] header-rht {{if .Filter.Keyword}}langSearchDiv{{end}}">
+            <a href="javascript:void(0);" id="langSearchlink"
+                class="srchBtn-togg group grid h-full w-[32px] place-items-center absolute left-0 top-0  hover:bg-[#F0FFFB]">
+                <img src="/public/img/search-icon.svg" alt="search" class="block group-hover:hidden ">
+                <img src="/public/img/search-icon-active.svg" alt="search"
+                    class="hidden group-hover:block langHoverIcon">
+            </a>
+            <input type="text" placeholder={{$Translate.Csearch}} name="" id="langSearchBar"
+                class="search text-[12px] font-light leading-[15px] flex-grow border-0 outline-none w-0 p-0 absolute right-0 {{if .Filter.Keyword}} w-[calc(100%-36px)] h-full block {{else}} hidden {{end}}"
+                value="{{.Filter.Keyword}}">
+            </input>
+            {{if .Filter.Keyword}}
+            <div class=" absolute right-[6px] top-[9px] cursor-pointer searchClosebtn  ">
+                <img src="/public/img/close.svg" alt="close">
+            </div>
+            {{else}}
+            <div class=" absolute right-[6px] top-[9px] cursor-pointer hidden  Closebtn ">
+                <img src="/public/img/close.svg" alt="close">
+            </div>
+            {{end}}
+
+
+        </div>
+
+        {{$roleId := .UserDetails.RoleId}}
+
+        {{if eq $roleId 1}}
+        <a href="#" data-bs-toggle="modal"
+            class="h-8 px-[12px]  max-sm:px-[7px] max-sm:text-lg max-sm:leading-none max-sm:grid place-items-center max-sm:h-[32px] max-sm:min-w-[32px] rounded-[4px] bg-[#10A37F] flex items-center justify-center hover:bg-[#148569] text-sm font-normal text-white no-underline leading-0 gap-[2px]"
+            data-bs-toggle="modal" data-bs-target="#LanguageModal">
+            + <span class="max-sm:hidden"> {{$Translate.Languages.NewLanguage}}</span></a>
+        {{end}}
+    </header>
+
+    <div class="grid grid-cols-[236px_1fr] max-sm:h-fit h-full max-sm:grid-cols-1 max-xl:grid-cols-[180px_1fr]">
+        <!--accordion-->
+
+        {{template "settingsmenu" .}}
+
+        <!--table-->
+        <div class="block overflow-hidden @container pb-[120px] ">
+
+            <div class="overflow-x-auto scrollbar-thin  ">
+                <table class="w-full min-w-[768px]">
+                    <thead>
+                        <tr>
+                            {{if eq $roleId 1}}
+                            <th class="px-[16px] py-[12px] pr-0 w-[30px] border-b border-[#EDEDED]">
+                                <div class="chk-group chk-group-label flex justify-center">
+                                    <input type="checkbox" id="Check" class="hidden peer">
+                                    <label for="Check"
+                                        class="w-[14px] h-[14px] relative cursor-pointer flex gap-[6px] items-center mb-0 text-[14px] font-normal leading-[1] text-[#262626] tracking-[0.005em]
+                                        before:bg-transparent before:w-[14px] before:h-[14px] before:inline-block before:relative before:align-middle before:cursor-pointer before:bg-[url('/public/img/unchecked-box.svg')] before:bg-no-repeat before:bg-contain before:-webkit-appearance-none peer-checked:before:bg-[url('/public/img/checked-box.svg')]  "></label>
+                                </div>
+                            </th>
+                            {{end}}
+                            <th class="px-[16px] py-[12px] border-b border-[#EDEDED] w-[30px]">
+                            </th>
+                            <th class="px-[16px] py-[12px] border-b border-[#EDEDED]">
+                                <p class="text-[#222222] text-sm font-normal mb-0">{{$Translate.Languages.Languagename}}
+                                </p>
+                            </th>
+                            <th
+                                class="text-[#222222] font-normal text-sm px-[16px] py-[12px] border-b border-[#EDEDED]  ">
+                                {{$Translate.Languages.Languagecode}}
+                            </th>
+
+
+                            <th
+                                class="text-[#222222] font-normal text-sm px-[16px] py-[12px] border-b border-[#EDEDED]">
+                                {{$Translate.Languages.Lastupdatedon}}
+                            </th>
+                            <th
+                                class="text-[#222222] font-normal text-sm px-[16px] py-[12px] border-b border-[#EDEDED] text-center">
+                                <!-- {{$Translate.Languages.Status}} -->
+                                {{$Translate.Languages.Setasdefault}}
+                            </th>
+
+                            {{if eq $roleId 1}}
+
+                            <th
+                                class="text-[#222222] font-normal text-sm px-[16px] py-[12px] border-b border-[#EDEDED] text-center">
+                                {{$Translate.Graphql.TableActionHeading}}
+                            </th>
+                            {{end}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{$keyword := .Filter}}
+                        {{if and (eq .Count 0) .Filter}}
+                        <tr>
+                            <td colspan="9">
+                                <div class="max-w-[328px] mx-auto text-center m-[120px_16px]">
+                                    <div class="text-center w-fit mx-auto">
+                                        <img src="/public/img/noFilter.svg" alt="noFilter">
+                                    </div>
+                                    <h2
+                                        class="text-[#262626] text-center text-[18px] font-medium leading-[22.5px] mb-[6px] ">
+                                        {{$Translate.Filtersearch}}</h2>
+                                    <p
+                                        class="text-[#717171] text-center text-[12px] font-normal leading-[15px] mb-[8px] ">
+                                        {{$Translate.Filterkeyword}} </p>
+
+                                </div>
+                            </td>
+                        </tr>
+                        {{else}}
+                        {{$DefId := .UserDetails.DefaultLanguageId}}
+                        {{range .Languages}}
+                        <tr>
+                            {{if eq $roleId 1}}
+                            <td class="px-[16px] py-[12px] pr-0 border-b border-[#EDEDED] align-middle">
+                                {{if ne .Id 1}}
+                                <div class="chk-group chk-group-label flex justify-center">
+                                    <input type="checkbox" id="Check{{.Id}}" class="hidden peer selectcheckbox"
+                                        data-id="{{.Id}}">
+                                    <label for="Check{{.Id}}"
+                                        class="z-[100] before:z-[100] w-[14px] h-[14px] relative cursor-pointer flex gap-[6px] items-center mb-0 text-[14px] font-normal leading-[1] text-[#262626] tracking-[0.005em]
+                                        before:bg-transparent before:w-[14px] before:h-[14px] before:inline-block before:relative before:align-middle before:cursor-pointer before:bg-[url('/public/img/unchecked-box.svg')] before:bg-no-repeat before:bg-contain before:-webkit-appearance-none peer-checked:before:bg-[url('/public/img/checked-box.svg')]  "></label>
+                                </div>
+                                {{end}}
+                            </td>
+                            {{end}}
+                            <td
+                                class=" w-[30px] px-[16px] py-[12px] border-b border-[#EDEDED] align-middle text-[#262626] text-xs font-normal">
+                                <div class="block w-[24px] h-[16px] bg-[#D9D9D9] min-w-[24px] ">
+                                    <img src="{{.ImagePath}}" alt="flag" class="w-100 h-100">
+                                </div>
+                            </td>
+                            <td
+                                class="px-[16px] py-[12px] border-b border-[#EDEDED] align-middle text-[#262626] text-xs font-normal">
+                                {{.LanguageName}}
+                            </td>
+                            <td
+                                class="px-[16px] py-[12px] border-b border-[#EDEDED] text-xs text-[#717171] align-middle languageCode">
+                                {{.LanguageCode}}
+                            </td>
+
+                            <td
+                                class="px-[16px] py-[12px] border-b border-[#EDEDED] text-xs text-[#717171] align-middle">
+                                {{.DateString}}
+                            </td>
+
+                            <td class="px-[16px] py-[12px] border-b border-[#EDEDED] text-center">
+                                <label for="toggle{{.Id}}"
+                                    class="flex items-center justify-center {{if or (eq $roleId 2) (eq $roleId 1)}}cursor-pointer {{else}} cursor-default{{end}} select-none text-dark dark:text-white">
+                                    <div class="relative">
+                                        <input type="checkbox" id="toggle{{.Id}}" class="peer sr-only langStatusBtn"
+                                            {{if eq $DefId .Id }} checked {{end}}
+                                            value="{{if eq $DefId .Id }}1{{else}}0{{end}}" data-id="{{.Id}}"
+                                            data-role-id="{{$roleId}}" />
+                                        <div class="block h-4 rounded-full dark:bg-dark-2 bg-gray-3 w-[30px]">
+                                        </div>
+                                        <div
+                                            class="absolute w-3 h-3 transition bg-white rounded-full dot dark:bg-dark-4 left-0.5 top-0.5  peer-checked:translate-x-[116%] peer-checked:bg-primary">
+                                        </div>
+                                    </div>
+                                </label>
+                            </td>
+                            {{end}}
+
+                            {{if eq $roleId 1}}
+                            <td
+                                class="px-[16px] py-[12px] border-b border-[#EDEDED] text-xs text-[#717171] align-middle text-center">
+                                <div class="btn-group position-static">
+                                    <a href="javascript:void(0);" type="button"
+                                        class="border-0 grid place-items-center items-center gap-[5px] w-[24px] h-[24px] rounded-[4px] group hover:bg-[#F5F5F5] focus:bg-[#F5F5F5] show"
+                                        data-bs-toggle="dropdown" aria-expanded="true">
+                                        <img src="/public/img/action-btn-active.svg" alt="dropdown"
+                                            class="hidden group-hover:block">
+                                        <img src="/public/img/action-btn.svg" alt="dropdown"
+                                            class="block group-hover:hidden">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-start border-0 focus:bg-transparent drop-shadow-4 min-w-220 py-[12px]"
+                                        aria-labelledby="triggerId">
+
+                                        <a class="dropdown-item h-11 flex items-center gap-a-4 text-bold-black text-base font-normal langEditBtn"
+                                            href="javascript:void(0);" data-id="{{.Id}}" data-bs-toggle="modal"
+                                            data-bs-target="#LanguageModal"><img src="/public/img/edit.svg" />
+                                            {{$Translate.Edit}}</a>
+                                        {{if ne .Id 1}}
+                                        <div class="w-full h-px bg-gray-100 ma-y-2"></div>
+
+                                        <a class="dropdown-item h-11 flex items-center gap-a-4 text-bold-black text-base font-normal langDeleteBtn"
+                                            data-bs-toggle="modal" data-bs-target="#deleteModal" href="#"
+                                            data-id="{{.Id}}">
+                                            <img src="/public/img/delete.svg">{{$Translate.Delete}}</a>
+                                        {{end}}
+                                    </div>
+                                </div>
+
+                            </td>
+                            {{end}}
+                        </tr>
+                        {{end}}
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+
+        <!--pagination-->
+        <div
+            class="@container gap-[1rem] max-sm:w-full max-md:w-full flex justify-between  @[500px]:justify-center items-center p-[16px] fixed bottom-0 w-[calc(100%-232px)]  right-0 bg-[#ffffff] z-[978]">
+            <ul class="@[500px]:!ml-auto justify-center items-center gap-[8px] flex">
+                {{if gt .Count .Limit}}
+
+                <li> <a href="?page={{.Pagination.PreviousPage}}{{if .Filter.Keyword}}&keyword={{.Filter.Keyword}}{{end}}"
+                        class="flex justify-center w-[24px] h-[24px]  items-center rounded-[4px] border-[.0625rem] border-[#ECECEC] bg-[#FFF] hover:text-[#222222] text-[14px] hover:bg-[#F5F5F5] font-normal text-[#222222]  @[500px]:w-[77px]  @[500px]:h-[36px] gap-[4px] {{if eq .CurrentPage 1}}opacity-50  pointer-events-none {{end}}">
+                        <img src="/public/img/pg-prev.svg" alt="previous">
+                        <span class=" max-sm:hidden"> {{$Translate.Jobs.Back}}</span>
+                    </a>
+                </li>
+                {{if gt .CurrentPage 3}}
+                {{$keyword := .filter.Keyword}}
+                <li> <a href="?page=1{{if $keyword}}&keyword={{$keyword}}{{end}}" class="flex justify-center items-center rounded-[4px] border-[.0625rem] border-[#ECECEC] bg-[#FFF] hover:text-[#222222] text-[14px] font-normal hover:bg-[#F5F5F5] text-[#222222] 
+                    @[500px]:w-[33px] @[500px]:h-[36px]  w-[24px] h-[24px] gap-[4px]">
+                        1 </a> </li>
+                {{end}}
+                {{if eq .CurrentPage 5}}
+                <li> <a href="?page=2{{if .filter.Keyword}}&keyword={{.filter.Keyword}}{{end}}" class="flex justify-center items-center rounded-[4px] border-[.0625rem] border-[#ECECEC] bg-[#FFF] hover:text-[#222222] text-[14px] font-normal hover:bg-[#F5F5F5] text-[#222222] 
+                    @[500px]:w-[33px] @[500px]:h-[36px]  w-[24px] h-[24px] gap-[4px] ">
+                        2 </a> </li>
+                {{end}}
+                {{if gt .CurrentPage 5}}
+                <li> <a href="javascript:void(0)" class="flex justify-center items-center rounded-[4px] border-[.0625rem] border-[#ECECEC] bg-[#FFF] hover:text-[#222222] text-[14px] font-normal hover:bg-[#F5F5F5] text-[#222222] 
+                    @[500px]:w-[33px] @[500px]:h-[36px]  w-[24px] h-[24px] gap-[4px]">
+                        ...</a> </li>
+                {{end}}
+                {{if gt .CurrentPage 2}}
+                <li> <a href="?page={{.Pagination.TwoBelow}}{{if .filter.Keyword}}&keyword={{.filter.Keyword}}{{end}}"
+                        class="flex justify-center items-center rounded-[4px] border-[.0625rem] border-[#ECECEC] bg-[#FFF] hover:text-[#222222] text-[14px] font-normal hover:bg-[#F5F5F5] text-[#222222] 
+                    @[500px]:w-[33px] @[500px]:h-[36px]  w-[24px] h-[24px] gap-[4px]">
+                        {{.Pagination.TwoBelow}} </a> </li>
+                {{end}}
+                {{if gt .CurrentPage 1}}
+                <li> <a href="?page={{.Pagination.PreviousPage}}{{if .filter.Keyword}}&keyword={{.filter.Keyword}}{{end}}"
+                        class="flex justify-center items-center rounded-[4px] border-[.0625rem] border-[#ECECEC] bg-[#FFF] hover:text-[#222222] text-[14px] font-normal hover:bg-[#F5F5F5] text-[#222222] 
+                    @[500px]:w-[33px] @[500px]:h-[36px]  w-[24px] h-[24px] gap-[4px]">
+                        {{.Pagination.PreviousPage}} </a> </li>
+                {{end}}
+
+                <li> <a href=""
+                        class=" {{if  .CurrentPage }} flex justify-center items-center rounded-[4px] border-[.0625rem] border-[#ECECEC] text-[14px]   @[500px]:w-[33px] @[500px]:h-[36px]  w-[24px] h-[24px] gap-[4px] border-none text-[#FFFFFF] hover:text-[#FFFFFF] bg-[#10A37F] hover:bg-[#148569] font-bold {{end}}">
+                        {{.CurrentPage}} </a> </li>
+
+                {{if lt .CurrentPage .Pagination.TotalPages}}
+                <li> <a href="?page={{.Pagination.NextPage}}{{if .filter.Keyword}}&keyword={{.filter.Keyword}}{{end}}"
+                        class="flex justify-center items-center rounded-[4px] border-[.0625rem] border-[#ECECEC] bg-[#FFF] hover:text-[#222222] text-[14px] font-normal hover:bg-[#F5F5F5] text-[#222222] 
+     @[500px]:w-[33px] @[500px]:h-[36px]  w-[24px] h-[24px] gap-[4px]">
+                        {{.Pagination.NextPage}} </a> </li>
+                {{end}}
+                {{if (le .Pagination.TwoAfter .Pagination.TotalPages)}}
+                <li> <a href="?page={{.Pagination.TwoAfter}}{{if .filter.Keyword}}&keyword={{.filter.Keyword}}{{end}}"
+                        class="flex justify-center items-center rounded-[4px] border-[.0625rem] border-[#ECECEC] bg-[#FFF] hover:text-[#222222] text-[14px] font-normal hover:bg-[#F5F5F5] text-[#222222] 
+                    @[500px]:w-[33px] @[500px]:h-[36px]  w-[24px] h-[24px] gap-[4px]">
+                        {{.Pagination.TwoAfter}} </a> </li>
+                {{end}}
+                {{if (lt .Pagination.ThreeAfter .Pagination.TotalPages)}}
+                <li> <a href="javascript:void(0)" class="flex justify-center items-center rounded-[4px] border-[.0625rem] border-[#ECECEC] bg-[#FFF] hover:text-[#222222] text-[14px] font-normal hover:bg-[#F5F5F5] text-[#222222] 
+                    @[500px]:w-[33px] @[500px]:h-[36px]  w-[24px] h-[24px] gap-[4px]">
+                        ...</a> </li>
+                {{end}}
+                {{if (lt .Pagination.TwoAfter .Pagination.TotalPages)}}
+                <li> <a href="?page={{.Pagination.TotalPages}}{{if .filter.Keyword}}&keyword={{.filter.Keyword}}{{end}}"
+                        class="flex justify-center items-center rounded-[4px] border-[.0625rem] border-[#ECECEC] bg-[#FFF] hover:text-[#222222] text-[14px] font-normal hover:bg-[#F5F5F5] text-[#222222] 
+                    @[500px]:w-[33px] @[500px]:h-[36px]  w-[24px] h-[24px] gap-[4px]">
+                        {{.Pagination.TotalPages}}</a> </li> {{end}}
+                <li> <a href="?page={{.Pagination.NextPage}}{{if .filter.Keyword}}&keyword={{.filter.Keyword}}{{end}}"
+                        class="flex justify-center w-[24px] h-[24px] items-center rounded-[4px] border-[.0625rem] border-[#ECECEC] bg-[#FFF] hover:text-[#222222] text-[14px] hover:bg-[#F5F5F5] font-normal text-[#222222]  @[500px]:w-[77px]  @[500px]:h-[36px] gap-[4px] {{if eq .CurrentPage .PageCount}}opacity-50  pointer-events-none {{end}}">
+                        <span class=" max-sm:hidden"> {{$Translate.Next}} </span> <img src="/public/img\pg-nxt.svg"
+                            alt="next">
+                    </a>
+                </li>
+                {{end}}
+            </ul>
+            <p class="@[500px]:!ml-auto text-[14px] font-normal text-[#222222] leading-[14px]">
+                {{.Paginationstartcount}} – {{.Paginationendcount}} {{$Translate.Of}} {{.Count}}
+            </p>
+        </div>
+
+
+</section>
+
+
+<div class="modal right fade" id="LanguageModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable font-roboto" role="document">
+        <div class="modal-content border-0">
+            <div class="flex justify-between items-center border-b border-[#ECECEC] px-6 py-[8px] max-sm:px-[16px] ">
+                <h5 class="text-bold-black mb-0 font-medium text-base" id="staticBackdropLabel">
+                    {{$Translate.Languages.Addnewlanguage}}
+                </h5>
+                <div class="flex gap-3">
+                    <a href="#"
+                        class="h-8 flex items-center justify-center px-[12px] text-sm font-normal text-bold-black bg-[#FAFAFA] hover:bg-[#e0e0e0] rounded-[4px] no-underline"
+                        id="langCancelBtn" data-bs-dismiss="modal">{{$Translate.Cancel}}</a>
+                    <a href="#"
+                        class="h-8 flex items-center justify-center px-[12px] text-sm font-normal text-white hover:bg-[#148569] bg-[#10A37F]  rounded-[4px] no-underline"
+                        id="langCreateBtn">{{$Translate.Create}}</a>
+                </div>
+            </div>
+            <div class="overflow-auto scrollbar-thin h-full">
+                <div class="py-[16px]   px-6  max-sm:px-[16px]  min-h-full">
+
+                    <form action="/settings/languages/addlanguage" name="language-form" method="post"
+                        enctype="multipart/form-data">
+                        <input type="text" class="hidden" name="csrf" id="csrfValue" value="{{.csrf}}">
+                        <input type="text" name="lang_id" id="langId" value="" class="hidden">
+                        <div class="flex items-end gap-[8px] justify-end mb-[16px]">
+                            <label for="setdefault"
+                                class="text-[#152027] leading-none text-sm  font-normal mb-0 cursor-pointer">{{$Translate.Ecommerce.SetasDefault}}</label>
+                            <label for="setdefault"
+                                class="flex items-center justify-center cursor-pointer select-none text-dark dark:text-white">
+                                <div class="relative">
+                                    <input type="checkbox" id="setdefault" class="peer sr-only" value="0"
+                                        name="lang_default">
+                                    <div class="block h-4 rounded-full dark:bg-dark-2 bg-gray-3 w-[30px]">
+                                    </div>
+                                    <div
+                                        class="absolute w-3 h-3 transition bg-white rounded-full dot dark:bg-dark-4 left-0.5 top-0.5  peer-checked:translate-x-[116%] peer-checked:bg-primary">
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+
+                        <div class="grid grid-cols-1 gap-[24px]">
+                            <div class="flex flex-col gap-[6px]">
+                                <p class="text-bold-black text-sm font-normal mb-0">
+                                    {{$Translate.Languages.Languagename}}<span class="text-red-600">*</span></p>
+                                <input type="text" name="lang_name" id="langName"
+                                    class="border border-[#EDEDED] bg-white   pd-3 h-[36px] rounded-[4px] [&amp;+label]:text-[#F26674] [&amp;+label]:font-normal [&amp;+label]:text-xs" />
+                            </div>
+
+                            <div class="flex flex-col gap-[6px]">
+                                <p class="text-bold-black text-sm font-normal mb-0">
+                                    {{$Translate.Languages.Languagecode}} <span class="text-red-600">*</span> </p>
+                                <div class="dropdown">
+                                    <a href="javascript:void(0);"
+                                        class="border border-[#EDEDED] bg-white   pd-3 h-[36px] rounded-[4px]  flex items-center bg-[url('/public/img/property-arrow.svg')] bg-no-repeat bg-[right_12px_center]"
+                                        type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                        id="languageCodeDropdown">
+                                        <p id="langCodePara"></p>
+
+
+                                    </a>
+                                    <ul class="dropdown-menu w-full border-0 rounded-[4px] 
+                                            shadow-[0px_8px_24px_-4px_#0000001F] p-[4px_0] !mt-[4px] ">
+                                        <li> <a href="javascript:void(0);"
+                                                class=" block p-[8px_16px] text-xs font-normal leading-4 text-[#262626] hover:bg-[#F5F5F5] langCodeGrp"
+                                                data-code="en">en</a>
+                                        </li>
+
+                                        <li> <a href="javascript:void(0);"
+                                                class="block p-[8px_16px] text-xs font-normal leading-4 text-[#262626] hover:bg-[#F5F5F5] langCodeGrp"
+                                                data-code="fr">fr</a>
+                                        </li>
+                                        <li> <a href="javascript:void(0);"
+                                                class="block p-[8px_16px] text-xs font-normal leading-4 text-[#262626] hover:bg-[#F5F5F5] langCodeGrp"
+                                                data-code="es">es</a>
+                                        </li>
+                                        <li> <a href="javascript:void(0);"
+                                                class="block p-[8px_16px] text-xs font-normal leading-4 text-[#262626] hover:bg-[#F5F5F5] langCodeGrp"
+                                                data-code="ger">ger</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input type="hidden"
+                                    class="[&amp;+label]:text-[#F26674] [&amp;+label]:font-normal [&amp;+label]:text-xs"
+                                    value="" id="lang_code" name="lang_code">
+                                <p class="hidden text-red-600 text-[13px]" id="langCodeErr">
+                                    {{$Translate.Languages.Langcodeerr}}
+                                </p>
+                            </div>
+
+                            <div class="flex flex-col gap-[6px] ">
+                                <p class="text-bold-black text-sm font-normal mb-0">
+                                    {{$Translate.Languages.Jsonfile}}<span class="text-red-600">*</span></p>
+                                <div
+                                    class="border-[1px] border-dashed border-[#B8B8B8] rounded-[4px] p-[16px] flex flex-col place-items-center gap-[8px] h-[180px] justify-center">
+
+                                    <span class="w-[24px] min-w-[24px] h-[24px]">
+                                        <img src="/public/img/Json.svg" alt="sample cover"></span>
+                                    <p class="text-[14px] font-[400] leading-[17.5px] text-[#B6B6B7]" id="jsonDesc">
+                                        {{$Translate.Languages.Choosefromdirectory}}
+                                    </p>
+                                    <label for="jsonFile"
+                                        class="flex cursor-pointer h-[32px] hover:bg-[#148569] bg-[#10A37F] rounded-[3px] text-[#FFFFFF] text-[14px] font-normal leading-[16.41px] p-[8px_16px]">{{$Translate.Languages.Browse}}</label>
+                                    <input type="file" name="lang_json" id="jsonFile"
+                                        class="hidden [&amp;+label]:text-[#F26674] [&amp;+label]:font-normal [&amp;+label]:text-xs"
+                                        value="">
+                                    </input>
+                                    <p class="hidden text-[13px] text-red-600" id="jsonFileErr">
+                                        {{$Translate.Languages.Jsonfileerr}}</p>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-[6px] ">
+                                <p class="text-bold-black text-sm font-normal mb-0">{{$Translate.Languages.Flagpicture}}
+                                    <span class="text-red-600">*</span>
+                                </p>
+                                <div class="border-[1px] border-dashed border-[#B8B8B8] rounded-[4px] p-[16px] flex flex-col place-items-center gap-[8px] h-[180px] justify-center relative deleteImgShow"
+                                    id="flagDiv">
+                                    <span class="w-[24px] min-w-[24px] h-[24px]" id="flagSpan">
+                                        <img src="/public/img/sample-cover-img.svg" alt="sample media"></span>
+                                    <p class="text-[14px] font-[400] leading-[17.5px] text-[#B6B6B7]" id="flagPara">
+                                        {{$Translate.Languages.Choosefrommedia}}
+                                    </p>
+                                    <label for="flagFile" id="flaggFileLabel"
+                                        class="flex cursor-pointer h-[32px] hover:bg-[#148569] bg-[#10A37F] rounded-[3px] text-[#FFFFFF] text-[14px] font-normal leading-[16.41px] p-[8px_16px]">{{$Translate.Languages.Browse}}
+
+                                    </label>
+                                    <input type="file"
+                                        class="hidden [&amp;+label]:text-[#F26674] [&amp;+label]:font-normal [&amp;+label]:text-xs"
+                                        id="flagFile" name="flag_imgPath">
+                                    </input>
+                                    <img src="" alt="" id="prof-crop" data-id="7">
+                                    <p id="myfile-error" class="text-[12px] text-red-700 hidden" for="profileImage">
+                                        {{$Translate.Languages.Flagfileerr}}</p>
+                                </div>
+
+                            </div>
+                            <input type="text" class="hidden" id="cropData" name="flag_imgpath" value="">
+                            <input type="text" class="hidden" id="langStatus" name="lang_status" value="">
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer" .}}
+
+
+<script>
+    // Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
+<script src="/public/js/settings/languages/language.js"></script>
+<script src="/public/js/media/media.js"></script>
+{{template "footerclose" .}}

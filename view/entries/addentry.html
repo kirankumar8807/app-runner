@@ -1,0 +1,750 @@
+
+{{template "header" .}}
+{{template "head" .}}
+{{$Translate := .translate}}
+{{$slchannelid := .Slchannelid}}
+<!-- Additionalfield Configuration section -->
+
+<section class="  max-md:ms-0 hidden max-md:max-w-full  w-full max-w-[calc(100%-232px)] ml-auto pt-[48px] min-h-screen"
+    id="field-section">
+    <header
+        class=" max-md:ms-0  max-md:w-full  flex justify-end space-x-[6px] h-[48px] border-b border-[#D9D9D9] p-[6px_16px] items-center fixed top-0 bg-white z-20 w-[calc(100%-232px)] right-0">
+        <div class="mr-auto flex items-center space-x-[6px]">
+            <a href="javascript:void(0);"
+                class=" max-md:grid hidden h-[32px] w-[32px] min-w-[32px] place-items-center bg-[#F5F5F5]">
+                <img src="/public/img/menu-button.svg" alt="toggle button" class="w-4 h-4 toggle-button">
+            </a>
+            <h2 class="text-[16px] font-medium leading-[20px] text-[#252525] whitespace-nowrap">Channel Fields
+            </h2>
+        </div>
+
+
+        <div class="flex space-x-[12px]">
+            <a href="javascript:void(0);"
+                class="h-8 flex items-center justify-center px-[12px] text-sm font-normal text-bold-black bg-slate-250 rounded-[4px] no-underline"
+                id="field-cancel">Cancel</a>
+            <a href="javascript:void(0);"
+                class="h-8 flex items-center justify-center px-[12px] text-sm font-normal text-white  hover:bg-[#148569] bg-[#10A37F] rounded-[4px] no-underline"
+                id="field-update">Update</a>
+        </div>
+    </header>
+
+
+
+    <div class="px-[16px] sm:py-4 bg-[#FAFAFA] min-h-[calc(100vh-50px)]">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 add-field" id="Sortsection">
+
+            <div class="dropdown open bg-white p-[8px_16px] relative flex items-center rounded-[4px] " id="add-field">
+                <button type="button"
+                    class="inline-flex w-full justify-center h-[40px] items-center border-2 border-[#10A37F] hover:bg-[#10A37F] hover:text-white rounded-[4px] bg-[white] px-[12px] py-[10px] text-base font-semibold text-[#10A37F] leading-none"
+                    id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    + Add Fields
+                </button>
+                <div class=" addfdrop dropdown-menu min-w-full scrollbar-thin rounded-md bg-white !mt-[0px] transform-l-0 b-0 left-0 z-10 pa-4 max-h-[50vh] overflow-auto"
+                    aria-labelledby="triggerId" style="">
+                    {{range .Fields}}
+                    {{if eq .TypeName "Text"}}
+                    <button
+                        class="field-types dropdown-item flex items-center h-9 space-x-[14px] text-bold-black text-base font-normal border border-[#ECECEC] rounded-[4px] mb-3"
+                        href="#" data-id="{{.Id}}" type-name="{{.TypeName}}">
+                        <img src="/public/img/text.svg" alt="">
+                        <span>Text</span>
+                    </button>
+                    {{end}}
+                    {{if eq .TypeName "Date & Time"}}
+                    <button
+                        class="field-types dropdown-item flex items-center h-9 space-x-[14px] text-bold-black text-base font-normal border border-[#ECECEC] rounded-[4px] mb-3"
+                        href="#" data-id="{{.Id}}" type-name="{{.TypeName}}">
+                        <img src="/public/img/date-time.svg" alt="">
+                        <span>Date & Time</span>
+                    </button>
+                    {{end}}
+                    {{if eq .TypeName "Select"}}
+                    <button
+                        class="field-types dropdown-item flex items-center h-9 space-x-[14px] text-bold-black text-base font-normal border border-[#ECECEC] rounded-[4px] mb-3"
+                        href="#" data-id="{{.Id}}" type-name="{{.TypeName}}">
+                        <img src="/public/img/select.svg" alt="">
+                        <span>Select</span>
+                    </button>
+                    {{end}}
+                    {{if eq .TypeName "Date"}}
+                    <button
+                        class="field-types dropdown-item flex items-center h-9 space-x-[14px] text-bold-black text-base font-normal border border-[#ECECEC] rounded-[4px] mb-3"
+                        href="#" data-id="{{.Id}}" type-name="{{.TypeName}}">
+                        <img src="/public/img/date.svg" alt="">
+                        <span>Date</span>
+                    </button>
+                    {{end}}
+                    {{if eq .TypeName "TextBox"}}
+                    <button
+                        class="field-types dropdown-item flex items-center h-9 space-x-[14px] text-bold-black text-base font-normal border border-[#ECECEC] rounded-[4px] mb-3"
+                        href="#" data-id="{{.Id}}" type-name="{{.TypeName}}">
+                        <img src="/public/img/input-box.svg" alt="">
+                        <span>Text Box</span>
+                    </button>
+                    {{end}}
+                    {{if eq .TypeName "TextArea"}}
+                    <button
+                        class="field-types dropdown-item flex items-center h-9 space-x-[14px] text-bold-black text-base font-normal border border-[#ECECEC] rounded-[4px] mb-3"
+                        href="#" data-id="{{.Id}}" type-name="{{.TypeName}}">
+                        <img src="/public/img/text-area.svg" alt="">
+                        <span>Text Area</span>
+                    </button>
+                    {{end}}
+                    {{if eq .TypeName "Radio Button"}}
+                    <button
+                        class="field-types dropdown-item flex items-center h-9 space-x-[14px] text-bold-black text-base font-normal border border-[#ECECEC] rounded-[4px] mb-3"
+                        href="#" data-id="{{.Id}}" type-name="{{.TypeName}}">
+                        <img src="/public/img/radio.jpg" alt="">
+                        <span>Radio Button</span>
+                    </button>
+                    {{end}}
+                    {{if eq .TypeName "CheckBox"}}
+                    <button
+                        class="field-types dropdown-item flex items-center h-9 space-x-[14px] text-bold-black text-base font-normal border border-[#ECECEC] rounded-[4px] mb-0"
+                        href="#" data-id="{{.Id}}" type-name="{{.TypeName}}">
+                        <img src="/public/img/check-box.svg" alt="">
+                        <span>Check Box</span>
+                    </button>
+                    {{end}}
+
+                    {{end}}
+                    <!-- <h3 class="text-bold-black font-normal text-base may-4">
+                        Relational Fields
+                    </h3>
+                    {{range .Fields}}
+                    {{if eq .TypeName "Members"}}
+                    <button
+                        class="field-types dropdown-item flex items-center h-9 gap-3.5 text-bold-black text-base font-normal border border-[#ECECEC] rounded-[4px] mb-3"
+                        href="#" data-id="{{.Id}}" type-name="{{.TypeName}}">
+                        <img src="/public/img/profile.svg" alt="">
+                        Members
+                    </button>
+                    {{end}}
+                    {{if eq .TypeName "Media Gallery"}}
+                    <button
+                        class="field-types dropdown-item flex items-center h-9 gap-3.5 text-bold-black text-base font-normal border border-[#ECECEC] rounded-[4px] mb-3"
+                        href="#" data-id="{{.Id}}" type-name="{{.TypeName}}">
+                        <img src="/public/img/img.svg" alt="">
+                        Media Gallery
+                    </button>
+                    {{end}}
+                    {{if eq .TypeName "Video URL"}}
+                    <button
+                        class="field-types dropdown-item flex items-center h-9 gap-3.5 text-bold-black text-base font-normal border border-[#ECECEC] rounded-[4px] mb-0"
+                        href="#" data-id="{{.Id}}" type-name="{{.TypeName}}">
+                        <img src="/public/img/video.svg" alt="">
+                        Video URL
+                    </button>
+                    {{end}}
+                    {{end}} -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class=" max-md:ms-0  max-md:max-w-full  w-full max-w-[calc(100%-232px)] ml-auto pt-[48px] min-h-screen "
+    id="ed-section">
+    <header
+        class=" max-md:ms-0  max-md:w-full  flex justify-end space-x-[6px] h-[48px] border-b border-[#D9D9D9] p-[6px_16px] items-center fixed top-[0]  bg-white z-[998] w-[calc(100%-232px)] right-0 header-rht">
+        <div class="mr-auto flex items-center space-x-[6px]">
+            <a href="javascript:void(0);"
+                class=" max-md:grid hidden h-[32px] w-[32px] min-w-[32px] place-items-center bg-[#F5F5F5]">
+                <img src="/public/img/menu-button.svg" alt="toggle button" class="w-4 h-4 toggle-button">
+            </a>
+            {{if eq .Mode "edit"}}
+            <a href="{{.Viewbaseurl}}/{{.Entries.Slug}}-{{.Entries.Uuid}}" target="_blank"
+                class=" max-sm:w-[32px] max-sm:min-w-[32px] text-sm font-normal max-sm:p-[8px] leading-tight text-center py-[7px]  px-[16px] h-8 rounded-[4px] flex space-x-[5px] items-center tracking-tight w-fit whitespace-nowrap border border-[#E7E7E7] text-[#717171] hover:text-[#717171] hover:bg-[#F5F5F5]"
+                id="save-entry ">
+                <span>
+                    <img src="/public/img/Eye.svg" alt="">
+                </span>
+                <span class="max-sm:hidden">
+                    Preview
+                </span>
+            </a>
+            {{end}}
+        </div>
+
+
+
+
+        <input type="hidden" id="eid" value="{{.Entries.Id}}">
+        <input type="hidden" id="orderindex" value="">
+        <input type="hidden" id="chnid" value="{{$slchannelid}}">
+        <input type="hidden" name="csrf" value="{{.csrf}}">
+        <input type="hidden" id="savetype">
+        <a href="javascript:void(0);" style="display: none;"
+            class="bg-[#F5F5F5] flex max-sm:p-[8px] items-center rounded-full text-[#717171] text-xs font-normal leading-4 tracking-tight py-[4px] px-[12px] space-x-[4px] max-sm:h-[32px] hover:text-[#717171] border-[1px] border-solid border-[#F5F5F5] hover:border-[#717171] ">
+            <img src="/public/img/loading.png" alt="loading">
+            <span class="block max-sm:hidden"> Saving as Draft</span>
+        </a>
+        <!-- <a href="javascript:void(0);"
+        class="text-sm font-normal max-sm:p-[8px] leading-tight text-center py-[7px] px-[16px] h-8 rounded-md grid place-items-center tracking-tight w-fit whitespace-nowrap border border-[#E7E7E7] text-[#717171] hover:text-[#717171] hover:bg-[#F5F5F5]">
+        <img src="/public/img\preview.svg" alt="preview" class=" hidden max-sm:block">
+        <span class="block max-sm:hidden">Preview</span></a>
+    <a href="javascript:void(0);"
+        class="text-sm font-normal max-sm:p-[8px] leading-tight text-center py-[7px]  px-[16px] h-8 rounded-md grid place-items-center tracking-tight w-fit whitespace-nowrap border border-[#E7E7E7] text-[#717171] hover:text-[#717171] hover:bg-[#F5F5F5]">
+        <img src="/public/img\share.svg" alt="share" class="hidden max-sm:block">
+        <span class="block max-sm:hidden">Share</span></a> -->
+
+        <div class="dropdown p-0 border-0 bg-transparent">
+            <a class=" w-[216px] bg-[#FFFFFF] rounded-[4px] border border-[#EDEDED] py-[7px]  px-[16px] h-[32px] flex items-center [&+label]:text-[#F26674] [&+label]:font-normal [&+label]:text-xs max-[500px]:w-[150px] max-[500px]:p-[7px] "
+                href="javascript:void(0);" id="sl-chn">
+                <div class=" flex-grow">
+                    <p class="text-[14px] font-normal leading-[17.5px] tracking-[0.005em] text-[#262626] line-clamp-1"
+                        data-id="{{$slchannelid}}" id="chn-name"  data-bs-custom-class="lms-tooltip" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"
+                        title="" >
+                        {{range .channellist}}
+                        {{if eq .Id $slchannelid}}
+                        {{.ChannelName}}
+                        {{end}}
+                        {{end}}</p>
+                    <input type="hidden" id="slchannel" data-id="">
+
+                </div>
+
+                <span class="grid place-items-center  h-full  ">
+                    <img src="/public/img/dropDown-arrow.svg" alt="arrow">
+                </span>
+            </a>
+
+            <ul class="dropdown-menu  !opacity-100 !w-full !h-fit scrollbar-thin w-full max-h-[165px] overflow-auto rounded-b-[8px] border-none transform-none top-full p-0 shadow-[0_8px_24px_-4px_rgba(0,0,0,0.12)] bg-white"
+                id="chn-list">
+
+                {{range .channellist}}
+                <li><a class="truncate dropdown-item p-[12px_16px] border-b border-solid border-[#EDEDED] text-[12px] font-normal leading-[16px] text-[#152027] hover:bg-[#F5F5F5] select-chn"
+                        href="javascript:void(0);" data-id="{{.Id}}" data-bs-custom-class="lms-tooltip" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"
+                        title="{{.ChannelName}}">{{.ChannelName}}</a></li>
+                {{end}}
+            </ul>
+        </div>
+
+        <a href="javascript:void(0);"
+            class="text-sm font-normal max-sm:p-[8px] leading-tight text-center py-[7px]  px-[16px] h-8 rounded-[4px] grid place-items-center tracking-tight w-fit whitespace-nowrap border border-[#E7E7E7] text-[#717171] hover:text-[#717171] hover:bg-[#F5F5F5]"
+            id="save-entry">Save</a>
+
+        <a href="javascript:void(0);"
+            class="text-[14px] font-normal max-sm:p-[8px] leading-tight text-center py-[7px] px-[16px] h-[32px] rounded-[4px] grid place-items-center tracking-[0.7px] w-fit whitespace-nowrap text-white bg-[#10A37F] hover:bg-[#148569]"
+            id="publishbtn">Publish</a>
+    </header>
+
+    <div class="block mx-auto">
+
+        <spurt-editor id="spurt-editor" block="{{.blocks}}" mode="{{.Mode}}" storagepath="{{.Storagepath}}"
+            content="{{.Entries.Description}}" generated="{{.htmldata}}">
+        </spurt-editor>
+        <!--tabs-->
+        <!-- <div class="fixed top-0 w-full h-full flex items-center justify-center left-0 hidden" id="overlay">
+    <dotlottie-player src="https://lottie.host/a3887906-28ed-4724-8ff5-7b3b777982e3/EHKWdw35V4.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+
+</div> -->
+        <div
+            class="editor-tabs max-sm:min-w-full fixed top-[48px] right-0 bg-white h-[100vh] transform translate-x-[100%]  transition-all group-hover/item:bg-transparent duration-300 ease-in-out min-w-[378px] shadow-[-2px_0px_6px_0px_#0000000D] z-[997]">
+            <div class="bg-[#FCFCFC] p-[10px_16px] flex space-x-[2px]">
+                <a href="javascript:void(0);"
+                    class="tab-togg w-[24px] h-[24px] grid place-items-center rounded-[2px] hover:bg-[#F3F3F3]"><img
+                        src="/public/img/close-transform.svg" alt="close"></a>
+                <!-- <a href="javascript:void(0);"
+                    class="tab-togg w-[24px] h-[24px] grid place-items-center rounded-[2px]  hover:bg-[#F3F3F3]"><img
+                        src="/public/img/expand.svg" alt="expand"></a> -->
+            </div>
+
+            <div class="editor-tab-lnk bg-white">
+                <ul class="nav nav-tabs border-b border-[#EDEDED] px-[16px]">
+                    <li><a href="#addCategories"
+                            class="tab-togg3R text-[14px] font-normal leading-[17.5px] pt-[21px] pb-[12px] px-[12px] relative grid place-items-center text-[#262626] hover:text-[#262626]   active"
+                            data-bs-toggle="tab">Add
+                            Categories</a></li>
+                    <li><a href="#addData" data-bs-toggle="tab"
+                            class=" tab-togg2R text-[14px] font-normal leading-[17.5px] pt-[21px] pb-[12px] px-[12px] relative grid place-items-center text-[#717171] hover:text-[#717171] ">Additional
+                            Data</a></li>
+                    <li><a href="#seo" data-bs-toggle="tab"
+                            class="tab-togg4 text-[14px] font-normal leading-[17.5px] pt-[21px] pb-[12px] px-[12px] relative grid place-items-center text-[#717171] hover:text-[#717171]">SEO</a>
+                    </li>
+                </ul>
+
+            </div>
+
+
+            <div class="tab-content bg-white">
+                <!-- tab1 -->
+                <div class="h-[calc(100vh_-_143px)] overflow-auto scrollbar-thin p-[16px] tab-pane fade show active"
+                    id="addCategories">
+
+                    <a href="javascript:void(0);"
+                        class="[&amp;+label]:text-[#F26674] [&amp;+label]:font-normal [&amp;+label]:text-xs tab-togg2 p-[12px_16px] border border-[#EDEDED] rounded-[4px] h-[42px] flex items-center justify-between hover:bg-[#F5F5F5]  mb-[24px]">
+                        <p class="text-[#262626] text-[14px] leading-[17.5px] font-normal">Available Categories
+                        </p>
+                        <div>
+                            <img src="/public/img/avaliable-setting.svg" alt="settings">
+                        </div>
+                    </a>
+                    <label id="sl-cat-error" class="error" style="display: none;">*Please select
+                        the Categories</label>
+                    <div class="hidden sl-list">
+                        <h3 class="mb-[16px] text-sm text-[#262626] font-normal leading-[17.5px]">Selected
+                            Categories</h3>
+                        <ul class="selected-cat">
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- tab2 -->
+
+                <div class="h-[calc(100vh_-_143px)] overflow-auto scrollbar-thin p-[16px] tab-pane fade" id="addData">
+                    <div class="mb-[16px]">
+                        <label class="text-[14px] font-normal leading-[17.5px] text-[#262626] mb-[6px]">Author</label>
+                        <div class="dropdown p-0 border-0 bg-transparent">
+                            <a class="bg-[#FFFFFF] h-[34px] flex items-center [&amp;+label]:text-[#F26674] [&amp;+label]:font-normal [&amp;+label]:text-xs"
+                                href="javascript:void(0);">
+                                <div class=" flex-grow">
+                                    <input type="text" placeholder="Select Author Name" id="author" name="author"
+                                        class="bg-[#F7F7F5] p-[8px_12px] rounded-[4px] text-[14px] font-normal leading-[17.5px] tracking-[0.005em] border-none outline-none h-[34px] block w-full placeholder:text-[#B2B2B2]">
+
+                                </div>
+
+
+                            </a>
+
+
+                            <ul
+                                class="userlistdiv dropdown-menu w-full rounded-b-[8px] border-none transform-none top-full p-0 shadow-[0_8px_24px_-4px_rgba(0,0,0,0.12)] bg-white min-h-[208px] place-items-center [&.nouserdata]:grid ">
+
+
+
+                                <li class="nodata-userlistdiv">
+                                    <div
+                                        class="noData-foundWrapper flex flex-col justify-content-center items-center h-full">
+
+                                        <div class="empty-folder">
+                                            <img style="max-width: 50px;" src="/public/img/noData.svg" alt="">
+                                            <img src="/public/img/shadow.svg" alt="">
+                                        </div>
+                                        <h1 style="text-align: center;font-size: 10px;" class="heading">
+                                            OOPS! No Data Found</h1>
+
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mb-[16px]">
+                        <label class="text-[14px] font-normal leading-[17.5px] text-[#262626] mb-[6px]">Created
+                            On</label>
+                        <input type="datetime-local" placeholder="Select Date" value="{{.currentdate}}"
+                            data-date="MM/DD/YYYY" name="cdtime" id="cdtime"
+                            class="border border-[#EDEDED] p-[8px_12px] rounded-[4px] text-[14px] font-normal leading-[17.5px] tracking-[0.005em] border-none outline-none h-[34px] block w-full  placeholder:text-[#B2B2B2]">
+                    </div>
+
+                    <div class="mb-[16px]">
+                        <label class="text-[14px] font-normal leading-[17.5px] text-[#262626] mb-[6px]">Published
+                            On</label>
+                        <input type="datetime-local" placeholder="Select Date" value="{{.currentdate}}" id="publishtime"
+                            name="publishtime"
+                            class="border border-[#EDEDED] p-[8px_12px] rounded-[4px] text-[14px] font-normal leading-[17.5px] tracking-[0.005em] border-none outline-none h-[34px] block w-full  placeholder:text-[#B2B2B2]">
+                    </div>
+
+                    <div class="mb-[16px]">
+                        <label class="text-[14px] font-normal leading-[17.5px] text-[#262626] mb-[6px]">Reading
+                            Time</label>
+                        <input type="number" placeholder="Enter Time (In mins)" id="readingtime" name="readingtime"
+                            class="bg-[#F7F7F5] p-[8px_12px] rounded-[4px] text-[14px] font-normal leading-[17.5px] tracking-[0.005em] border-none outline-none h-[34px] block w-full  placeholder:text-[#B2B2B2]">
+                    </div>
+
+                    <!-- <div class="mb-[16px]">
+                        <label class="text-[14px] font-normal leading-[17.5px] text-[#262626] mb-[6px]">Article
+                            Sorting</label>
+                        <input type="text" placeholder="Enter Number"
+                            class="bg-[#F7F7F5] p-[8px_12px] rounded-[4px] text-[14px] font-normal leading-[17.5px] tracking-[0.005em] border-none outline-none h-[34px] block w-full  placeholder:text-[#B2B2B2]">
+                    </div> -->
+                    <div class="mb-[16px]">
+                        <label class="text-[14px] font-normal leading-[17.5px] text-[#262626] mb-[6px]">Tags</label>
+                        <input type="text" placeholder="Enter Tag" name="tagname" id="tagname"
+                            class="bg-[#F7F7F5] p-[8px_12px] rounded-[4px] text-[14px] font-normal leading-[17.5px] tracking-[0.005em] border-none outline-none h-[34px] block w-full  placeholder:text-[#B2B2B2]">
+                    </div>
+                    <div class="mb-[16px]">
+                        <label class="text-[14px] font-normal leading-[17.5px] text-[#262626] mb-[6px]">Excerpt</label>
+                        <textarea placeholder="Enter Text" id="extxt" name="extxt"
+                            class="bg-[#F7F7F5] border border-[#EDEDED] p-[8px_12px] rounded-[4px] text-[14px] font-normal leading-[17.5px] tracking-[0.005em] border-none outline-none block w-full  h-[120px] resize-none  placeholder:text-[#B2B2B2]"></textarea>
+                    </div>
+                    <a href="javascript:void(0);"
+                        class="  tab-togg3 p-[12px_16px] border border-[#EDEDED] rounded-[4px] h-[42px] flex items-center justify-between hover:bg-[#F5F5F5] mb-[24px] last-of-type:mb-[0]">
+                        <p class="text-[#262626] text-[14px] leading-[17.5px] font-normal">Additional Data
+                        </p>
+                        <div>
+                            <img src="/public/img/avaliable-setting.svg" alt="settings">
+                        </div>
+                    </a>
+                </div>
+                <!-- tab3 -->
+                <div class="h-[calc(100vh_-_143px)] overflow-auto scrollbar-thin p-[16px] tab-pane fade" id="seo">
+                    <div class="mb-[16px]">
+                        <label class="text-[14px] font-normal leading-[17.5px] text-[#262626] mb-[6px]">Meta
+                            Title</label>
+                        <input type="text" placeholder="Enter Title" id="metatitle"
+                            class="[&amp;+label]:text-[#F26674] [&amp;+label]:font-normal [&amp;+label]:text-xs bg-[#F7F7F5] p-[8px_12px] rounded-[4px] text-[14px] font-normal leading-[17.5px] tracking-[0.005em] border-none outline-none h-[34px] block w-full  placeholder:text-[#B2B2B2]">
+                        <label id="metatitle-error" class="error" for="metatitle"></label>
+                    </div>
+                    <div class="mb-[16px]">
+                        <label class="text-[14px] font-normal leading-[17.5px] text-[#262626] mb-[6px]">Meta
+                            Descrition</label>
+                        <textarea placeholder="Enter Text" id="metadesc"
+                            class="[&amp;+label]:text-[#F26674] [&amp;+label]:font-normal [&amp;+label]:text-xs rounded-[4px]  bg-[#F7F7F5] border border-[#EDEDED] p-[8px_12px] rounded-[4px] text-[14px] font-normal leading-[17.5px] tracking-[0.005em] border-none outline-none h-[120px] resize-none block w-full  placeholder:text-[#B2B2B2]"></textarea>
+                        <label id="metadesc-error" class="error" for="metadesc"></label>
+                    </div>
+                    <div class="mb-[16px]">
+                        <label class="text-[14px] font-normal leading-[17.5px] text-[#262626] mb-[6px]">Keywords</label>
+                        <input type="text" placeholder="Keywords" id="metakey"
+                            class="bg-[#F7F7F5] p-[8px_12px] rounded-[4px] text-[14px] font-normal leading-[17.5px] tracking-[0.005em] border-none outline-none h-[34px] block w-full placeholder:text-[#B2B2B2]  ">
+                    </div>
+                    <div class="mb-[16px]">
+                        <label class="text-[14px] font-normal leading-[17.5px] text-[#262626] mb-[6px]">Slug</label>
+                        <input type="text" placeholder="Enter Slug" id="metaslug" readonly
+                            class="bg-[#F7F7F5] p-[8px_12px] rounded-[4px] text-[14px] font-normal leading-[17.5px] tracking-[0.005em] border-none outline-none h-[34px] block w-full  placeholder:text-[#B2B2B2]">
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- category tab -->
+            <div class=" editor-tabs2 max-sm:min-w-full fixed top-[0px]  right-0 bg-white h-[100vh] transform   transition-all group-hover/item:bg-transparent duration-300 ease-in-out min-w-[346px] 
+                 z-[-1] border-e border-[#EDEDED] max-w-[378px] translate-x-[100%]">
+                <div class="bg-[#FCFCFC] p-[10px_16px] flex space-x-[2px] items-center justify-between">
+                    <h2 class="text-[#262626] text-sm font-normal leading-[17.5px]">SELECT CATEGORIES</h2>
+                    <a href="javascript:void(0);"
+                        class="tab-togg2 w-[24px] h-[24px] grid place-items-center rounded-[2px] hover:bg-[#F3F3F3]"><img
+                            src="/public/img/close-drop.svg" alt="close"></a>
+
+                </div>
+
+                <div class="block h-[calc(100vh_-_92px)] overflow-auto scrollbar-thin">
+
+                    <div class="p-[12px] border-b border-[#EDEDED]">
+                        <input type="text" name="" id="Searchcategorie" placeholder="Search Categories"
+                            class="border border-[#EDEDED] rounded-[3px] p-[8px] pl-[36px] h-[32px] bg-[url('/public/img/search-icon.svg')] bg-no-repeat bg-[12px_center] text-[12px] font-light leading-[15px] w-full">
+                    </div>
+
+                    <ul class="categry-lst">
+
+                    </ul>
+
+
+                    <div class="noData-foundWrapper hidden flex flex-col justify-content-center items-center h-[250px]"
+                        id="nodatafounddesign">
+
+                        <div class="empty-folder">
+                            <img style="max-width: 50px;" src="/public/img/noData.svg" alt="">
+                            <img src="/public/img/shadow.svg" alt="">
+                        </div>
+                        <h1 style="text-align: center;font-size: 10px;" class="heading">
+                            OOPS! No Data Found</h1>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- additional field tab -->
+            <div class=" editor-tabs3  max-sm:min-w-full fixed top-[0px]  right-0 bg-white h-[100vh] transform   transition-all group-hover/item:bg-transparent duration-300 ease-in-out min-w-[346px] 
+z-[-1] border-e border-[#EDEDED] max-w-[378px] translate-x-[100%]">
+                <div class="bg-white p-[10px_16px] flex space-x-[6px] items-center shadow-[0px_1px_9px_0px_#0000001A] ">
+                    <h2 class="text-[#262626] text-sm font-normal leading-[17.5px]">Additional Data</h2>
+
+                    <a href="javascript:void(0);"
+                        class="tab-togg3 text-sm font-normal max-sm:p-[8px] leading-tight text-center py-[7px]  px-[16px] h-8 rounded-md grid place-items-center tracking-tight w-fit whitespace-nowrap border border-[#E7E7E7] text-[#717171] hover:text-[#717171] hover:bg-[#F5F5F5] ms-auto">Cancel</a>
+                    <a href="javascript:void(0);"
+                        class="text-[14px] font-normal max-sm:p-[8px] leading-tight text-center py-[7px] px-[16px] h-[32px] rounded-[4px] grid place-items-center tracking-[0.7px] w-fit whitespace-nowrap text-white bg-[#10A37F] hover:bg-[#148569]"
+                        id="fieldsave">Save</a>
+
+                </div>
+                <div class="p-[16px_12px] h-[calc(100vh_-_101px)] overflow-auto scrollbar-thin add-fl">
+                    <a href="javascript:void(0);"
+                        class="flex items-center space-x-[6px] justify-end mb-[12px] text-[#10A37F] hover:underline"
+                        id="field-config">
+                        <img src="/public/img/configuration-grn.svg" alt="setting">
+                        <span class="text-[#10A37F] font-normal leading-[20px] text-[15px]">
+                            Configuration</span>
+
+                    </a>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <!--tab button-->
+        <a href="javascript:void(0);"
+            class="w-[24px] h-[24px] rounded-[2px] bg-white shadow-[0px_1px_5px_0px_rgba(0,0,0,0.1)] grid place-items-center rotate-180 fixed top-[72px] right-[16px] tab-togg"><img
+                src="/public/img/close-transform.svg" alt="close"></a>
+
+    </div>
+
+
+</section>
+<div class="modal right fade" id="Id2" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="modalTitleId" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable font-roboto" role="document">
+        <div class="modal-content border-0">
+            <div class="flex justify-between items-center border-b border-[#ECECEC] px-6 py-[8px] max-sm:px-[16px] ">
+                <h5 class="text-bold-black mb-0 font-medium text-base fl-name" id="staticBackdropLabel">
+                    Properties - Date &amp; Time
+                </h5>
+                <div class="flex space-x-[12px]">
+                    <a href="javascript:void(0);"
+                        class="h-8 flex items-center justify-center px-[12px] text-sm font-normal text-bold-black bg-[#FAFAFA] hover:bg-[#e0e0e0] rounded-[4px] no-underline"
+                        data-bs-dismiss="modal" id="cln-modal">cancel</a>
+                    <a href="javascript:void(0);"
+                        class="h-8 flex items-center justify-center px-[12px] text-sm font-normal text-white hover:bg-[#148569] bg-[#10A37F]  rounded-[4px] no-underline"
+                        id="flp-save">Save</a>
+                </div>
+            </div>
+            <div class="overflow-auto scrollbar-thin h-full">
+                <div class="py-[16px]   px-6  max-sm:px-[16px] ">
+
+                    <div class="chk-group chk-group-label">
+                        <input type="checkbox" id="Check" class="hidden peer">
+                        <label for="Check"
+                            class=" h-[14px] relative cursor-pointer flex space-x-[6px] w-fit ml-auto mb-[16px] items-center text-[14px] font-normal leading-[1] text-[#262626] tracking-[0.005em]
+                            before:bg-transparent before:w-[14px] before:h-[14px] before:inline-block before:relative before:align-middle before:cursor-pointer before:bg-[url('/public/img/unchecked-box.svg')] before:bg-no-repeat before:bg-contain before:-webkit-appearance-none peer-checked:before:bg-[url('/public/img/checked-box.svg')]  ">
+                            <p class="text-bold-black text-xs font-normal mb-0">Mandatory</p>
+                        </label>
+                    </div>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="relative">
+                            <div class="flex flex-col space-y-[6px]">
+                                <p class="text-bold-black text-sm font-normal mb-0">Field Name</p>
+                                <input type="text" id="fl-input"  class="checklength [&+label]:text-[#F26674] [&+label]:font-normal [&+label]:text-xs border border-[#EDEDED] bg-white  pd-3 h-[36px] rounded-[4px] text-bold-black text-sm font-normal">
+                                <label id="fl-input-error" class="error" for="fl-input" style="display: none;">*Please enter the field name</label>
+                                <p class="text-xs text-[#F26674] mt-2 hidden lengthErr">You have reached a maximum limit of 30 characters</p>
+                            </div>
+                        </div>
+
+                        <div class="relative hidden dt-field h-full">
+                            <div class="flex flex-col space-y-[6px]">
+                                <p class="text-bold-black text-sm font-normal mb-0">Date Format</p>
+                                <div class="dropdown">
+                                    <a href="javascript:void(0);"
+                                        class="date-drop [&+label]:text-[#F26674] [&+label]:font-normal [&+label]:text-xs border border-[#EDEDED] bg-white  pd-3 h-[36px] rounded-[4px]  flex items-center bg-[url('/public/img/property-arrow.svg')] bg-no-repeat bg-[right_12px_center]"
+                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <p id="dt-f" class="text-sm font-normal"></p>
+                                    </a>
+                                    <label id="dt-f-error" class="error" for="dt-f" style="display: none;">*Please
+                                        choose the date format</label>
+                                    <ul class="date-dropdown dropdown-menu w-full border-0 rounded-[4px] 
+                                        shadow-[0px_8px_24px_-4px_#0000001F] p-[4px_0] !mt-[4px] ">
+                                        <li> <a href="javascript:void(0);"
+                                                class=" block p-[8px_16px] text-xs font-normal leading-4 text-[#262626] hover:bg-[#F5F5F5] dt-format">DD/MM/YYYY</a>
+                                        </li>
+
+                                        <li> <a href="javascript:void(0);"
+                                                class="block p-[8px_16px] text-xs font-normal leading-4 text-[#262626] hover:bg-[#F5F5F5] dt-format">MM/DD/YYYY</a>
+                                        </li>
+                                        <li> <a href="javascript:void(0);"
+                                                class="block p-[8px_16px] text-xs font-normal leading-4 text-[#262626] hover:bg-[#F5F5F5] dt-format">YYYY/MM/DD</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative hidden ti-field h-full">
+                            <div class="flex flex-col space-y-[6px]">
+                                <p class="text-bold-black text-sm font-normal mb-0">Time Format</p>
+                                <div class="dropdown">
+                                    <a href="javascript:void(0);"
+                                        class="time-drop [&+label]:text-[#F26674] [&+label]:font-normal [&+label]:text-xs border border-[#EDEDED] bg-white  pd-3 h-[36px] rounded-[4px]  flex items-center bg-[url('/public/img/property-arrow.svg')] bg-no-repeat bg-[right_12px_center]"
+                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <p id="tm-f" class="text-sm font-normal"></p>
+                                    </a>
+                                    <label id="tm-f-error" class="error" for="tm-f" style="display: none;">*Please
+                                        choose the time format</label>
+                                    <ul
+                                        class="time-dropdown dropdown-menu w-full border-0 rounded-[4px] shadow-[0px_8px_24px_-4px_#0000001F] p-[4px_0] !mt-[4px] ">
+                                        <li> <a href="javascript:void(0);"
+                                                class=" block p-[8px_16px] text-xs font-normal leading-4 text-[#262626] hover:bg-[#F5F5F5] tm-format">12
+                                                Hours</a>
+                                        </li>
+                                        <li> <a href="javascript:void(0);"
+                                                class="block p-[8px_16px] text-xs font-normal leading-4 text-[#262626] hover:bg-[#F5F5F5] tm-format">24
+                                                Hours</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative hidden option-field">
+                            <div class="flex flex-col space-y-[12px] add-fp">
+                                <div>
+                                    <label class="text-bold-black text-sm font-normal mb-[6px]">Options</label>
+                                    <div
+                                        class="flex items-center space-y-[12px] [&+label]:text-[#F26674] [&+label]:font-normal [&+label]:text-xs">
+                                        <input type="text" id="opt-val"
+                                            class="border border-[#EDEDED] bg-white  pd-3 h-[36px] rounded-[4px] block grow ">
+                                        <a href="javascript:void(0);" id="add-options"
+                                            class="border bg-[#F7F7F5] border-[#EDEDED] rounded-[4px] w-[36px] h-[36px] grid place-items-center hover:bg-[#e0e0e0] ">
+                                            <img src="/public/img/add-options.svg" alt="add">
+                                        </a>
+                                    </div>
+                                    <label id="opt-val-error" class="error" for="opt-val" style="display: none;">*Please
+                                        enter the option</label>
+                                </div>
+
+
+                                <!-- <div class="flex items-center gap-[12px] ">
+                                    <div class="border border-[#F7F7F5] pd-3 h-[36px] rounded-[4px] grow text-xs font-normal leading-4 text-[#262626] flex items-center justify-between ">
+                                        Option 2
+
+                                        <a href="javascript:void(0);">
+                                            <img src="/public/img/drag.svg" alt="drag">
+                                        </a>
+                                    </div>
+                                    <a href="javascript:void(0);" class="border bg-[#F7F7F5] border-[#EDEDED] rounded-[4px] w-[36px] h-[36px] grid place-items-center hover:bg-[#e0e0e0]">
+                                        <img src="/public/img/delete-options.svg" alt="delete">
+                                    </a>
+                                </div>
+                                <div class="flex items-center gap-[12px] ">
+                                    <div class="border border-[#EDEDED] pd-3 h-[36px] rounded-[4px] grow text-xs font-normal leading-4 text-[#262626] flex items-center justify-between ">
+                                        Option 3
+
+                                        <a href="javascript:void(0);">
+                                            <img src="/public/img/drag.svg" alt="drag">
+                                        </a>
+                                    </div>
+                                    <a href="javascript:void(0);" class="border bg-[#F7F7F5] border-[#EDEDED] rounded-[4px] w-[36px] h-[36px] grid place-items-center hover:bg-[#e0e0e0]">
+                                        <img src="/public/img/delete-options.svg" alt="delete">
+                                    </a>
+                                </div> -->
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{template "footer" .}}
+
+<script src="/public/js/entries/addentry.js"></script>
+
+<script src="/public/js/channels/channel.js"></script>
+<script src="/public/js/app.js"></script>
+
+<!--extend-->
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                keyframes: {
+                    dropanime: {
+                        '0%': {
+                            opacity: '0',
+                            transform: 'translateY(-10px) scale(0.9)',
+                        },
+                        '70%': {
+                            opacity: '1',
+                            transform: 'translateY(5px)',
+                        },
+                        '100%': {
+                            transform: 'translateY(0)',
+                        },
+                    },
+                },
+                animation: {
+                    dropanime: 'dropanime 0.1s ease-out',
+                },
+
+                scrollbar: {
+                    thin: {
+                        'scrollbar-width': 'thin',
+                    }
+                }
+            }
+        },
+
+        plugins: [
+            function ({ addUtilities }) {
+                addUtilities(
+                    {
+                        '.scrollbar-thin': {
+                            'scrollbar-width': 'thin',
+                        }
+                    },
+                    ['responsive']
+                );
+            },
+        ],
+    }
+</script>
+
+<!--right tab open-->
+
+<script>
+    $(document).ready(function () {
+        $('.tab-togg').click(function () {
+            $("#chn-list").removeClass("show")
+            $('.editor-tabs').toggleClass('translate-x-[100%]');
+            $('#editingArea').toggleClass('mr-[387px] w-full');
+            $('.editor-tabs2').removeClass('translate-x-[-378px] max-lg:translate-x-[0] max-lg:z-[999]  max-lg:min-w-[378px]');
+            $('.editor-tabs2').addClass('translate-x-[100%]');
+            $('.editor-tabs').addClass('shadow-[-2px_0px_6px_0px_#0000000D]');
+            $('.editor-tabs2').removeClass(' shadow-[-8px_0px_16px_0px_#0000000D]');
+            $('.editor-tabs3').removeClass('translate-x-[-378px] max-lg:translate-x-[0] max-lg:z-[999]  max-lg:min-w-[378px]');
+            $('.editor-tabs3').addClass('translate-x-[100%]');
+            $('.editor-tabs').addClass('shadow-[-2px_0px_6px_0px_#0000000D]');
+            $('.editor-tabs3').removeClass(' shadow-[-8px_0px_16px_0px_#0000000D]');
+        });
+    });
+
+    /*create entires right side tab2 open*/
+    $(document).ready(function () {
+        $('.tab-togg2').click(function () {
+            $('.editor-tabs2').toggleClass('translate-x-[-378px] max-lg:translate-x-[0] max-lg:z-[999]  max-lg:min-w-[378px]');
+            $('.editor-tabs2').toggleClass('translate-x-[100%]');
+            $('.editor-tabs').toggleClass('shadow-[-2px_0px_6px_0px_#0000000D]');
+            $('.editor-tabs2').toggleClass(' shadow-[-8px_0px_16px_0px_#0000000D]');
+
+
+
+        });
+        $('.tab-togg3').click(function () {
+            $('.editor-tabs3').toggleClass('translate-x-[-378px] max-lg:translate-x-[0] max-lg:z-[999]  max-lg:min-w-[378px]');
+            $('.editor-tabs3').toggleClass('translate-x-[100%]');
+            $('.editor-tabs').toggleClass('shadow-[-2px_0px_6px_0px_#0000000D]');
+            $('.editor-tabs3').toggleClass(' shadow-[-8px_0px_16px_0px_#0000000D]');
+
+        });
+        $('.tab-togg4').click(function () {
+            $('.editor-tabs3,.editor-tabs2').removeClass('translate-x-[-378px] max-lg:translate-x-[0] max-lg:z-[999]  max-lg:min-w-[378px]');
+            $('.editor-tabs3,..editor-tabs2').addClass('translate-x-[100%]');
+            $('.editor-tabs').addClass('shadow-[-2px_0px_6px_0px_#0000000D]');
+            $('.editor-tabs3,.editor-tabs2').removeClass(' shadow-[-8px_0px_16px_0px_#0000000D]');
+
+        });
+        $('.tab-togg3R').click(function () {
+            $('.editor-tabs3').removeClass('translate-x-[-378px] max-lg:translate-x-[0] max-lg:z-[999]  max-lg:min-w-[378px]');
+            $('.editor-tabs3').addClass('translate-x-[100%]');
+            $('.editor-tabs').addClass('shadow-[-2px_0px_6px_0px_#0000000D]');
+            $('.editor-tabs3').removeClass(' shadow-[-8px_0px_16px_0px_#0000000D]');
+
+        });
+        $('.tab-togg2R').click(function () {
+            $('.editor-tabs2').removeClass('translate-x-[-378px] max-lg:translate-x-[0] max-lg:z-[999]  max-lg:min-w-[378px]');
+            $('.editor-tabs2').addClass('translate-x-[100%]');
+            $('.editor-tabs').addClass('shadow-[-2px_0px_6px_0px_#0000000D]');
+            $('.editor-tabs2').removeClass(' shadow-[-8px_0px_16px_0px_#0000000D]');
+
+        });
+
+    });
+</script>
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
+{{template "footerclose" .}}
